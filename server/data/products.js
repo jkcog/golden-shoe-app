@@ -81,8 +81,8 @@ const products = [
     title: 'Tasselled Leather Loafers',
     categories: ['men', 'loafers'],
     images: [
-      '/images/shoes/men/Loafer-1/1.jpeg',
-      '/images/shoes/men/Loafer-1/2.jpeg',
+      '/images/shoes/men/Loafer-2/1.jpeg',
+      '/images/shoes/men/Loafer-2/2.jpeg',
     ],
     description:
       'Leather loafers with tassels, a moccasin seam at the front and soft backs that can be folded down. Leather linings and insoles and smooth soles. Heel 1.4 cm.',

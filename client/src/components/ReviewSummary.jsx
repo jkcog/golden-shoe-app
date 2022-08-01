@@ -18,9 +18,9 @@ const ReviewSummary = ({ product }) => {
       </div>
       <div className="px-8 xl:px-48 my-24">
         <h2 className="font-bold text-center mb-4 text-xl">Fit</h2>
-        <div class="w-full bg-gray-300 h-4">
+        <div className="w-full bg-gray-300 h-4">
           <div
-            class="bg-black w-2 h-4"
+            className="bg-black w-2 h-4"
             style={{ marginLeft: `${product.ratedSize * 10}%` }}
           ></div>
         </div>
@@ -41,7 +41,7 @@ const ReviewSummary = ({ product }) => {
                 name="rating"
                 starDimension={'15px'}
               />
-              <h1 className="font-semibold">{review.title}</h1>
+              <h1 className="font-semibold mt-2">{review.title}</h1>
               <p>{review.body}</p>
             </div>
           );

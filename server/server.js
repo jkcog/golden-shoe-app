@@ -1,7 +1,5 @@
 import express from 'express';
-import cors from 'cors';
 import 'dotenv/config';
-import products from './data/products.js';
 import dbConnect from './mongoDb.js';
 import fetchData from './fetchData.js';
 import productRoute from './routes/productRoute.js';

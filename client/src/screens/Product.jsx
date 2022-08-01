@@ -23,18 +23,11 @@ const IndividualProduct = () => {
   const currentLocation = window.location.href;
 
   const addItem = () => {
-    console.log('ADD ITEM!!!');
-    console.log('bag add', bagState.bag);
     const existsInBag = bagState.bag.find((element) => {
       return element._id === id;
     });
-    console.log('exists? ', existsInBag);
     let inStock = product.sizes[size] >= 1;
-    console.log('in stock: ', inStock);
-    console.log(
-      'quant in stock: ',
-      product.sizes[size] >= existsInBag?.quanitity
-    );
+
     if (existsInBag) {
       console.log('exits in bag: ', existsInBag);
       console.log('exists quant: ', existsInBag.quantity);
@@ -42,7 +35,6 @@ const IndividualProduct = () => {
     if (existsInBag && existsInBag.quantity >= existsInBag.sizes[size]) {
       inStock = false;
     }
-    console.log('in stock: ', inStock);
 
     if (size && inStock) {
       setErrorMessage('');
@@ -56,19 +48,7 @@ const IndividualProduct = () => {
   };
 
   useEffect(() => {
-    console.log('single product');
-    console.log('useEffect: ', id);
-    console.log(loading);
-    console.log(error);
-    console.log(currentProductState);
-    console.log(product);
-    if (product) {
-      console.log(product.images);
-    }
     dispatch(fetchSingleProduct(id));
-
-    console.log('location: ', currentLocation);
-    console.log('location: ', window.location);
   }, [dispatch]);
 
   return (
@@ -87,7 +67,6 @@ const IndividualProduct = () => {
         <div>
           <div className="flex flex-col 2xl:flex-row gap-24 2xl:gap-0 items-center justify-around mt-24 mb-24 lg:mb-48">
             <div className="xl:w-1/2 flex justify-center items-center">
-              {/* <img className="w-96" src={product.images[0]} alt={product.title} /> */}
               <ImageCarousel images={product.images} />
             </div>
 
@@ -109,21 +88,21 @@ const IndividualProduct = () => {
                     setSize(e.target.value);
                   }}
                 >
-                  <option selected disabled hidden value="">
+                  <option defaultValue disabled hidden value="">
                     Select a size
                   </option>
                   {Object.keys(product.sizes).map((size, i) => {
                     return (
-                      <>
+                      <React.Fragment key={i}>
                         {product.sizes[size] >= 1 ? (
                           <option value={size}>{size}</option>
                         ) : (
-                          <option disabled value={size}>
+                          <option disabled value={size} key={i}>
                             {size}{' '}
                             <span className="text-red-200">Out of stock</span>
                           </option>
                         )}
-                      </>
+                      </React.Fragment>
                     );
                   })}
                 </select>
@@ -156,10 +135,6 @@ const IndividualProduct = () => {
                   <BsTwitter size={25} />
                 </a>
               </div>
-              {/* {product.reviews.map((review, i) => {
-              console.log(review);
-              return <h1>{review.title}</h1>;
-            })} */}
             </div>
           </div>
           <ReviewSummary product={product} />

@@ -25,7 +25,12 @@ const ImageCarousel = ({ images }) => {
       <div className="flex flex-row lg:flex-col lg:mr-4">
         {images.map((img, i) => {
           return (
-            <img className="w-12 h-12" src={img} onClick={() => setIndex(i)} />
+            <img
+              key={i}
+              className="w-12 h-12"
+              src={img}
+              onClick={() => setIndex(i)}
+            />
           );
         })}
       </div>

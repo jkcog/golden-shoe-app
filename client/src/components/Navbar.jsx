@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { BsSearch, BsBag } from 'react-icons/bs';
 import { AiOutlineMenu } from 'react-icons/ai';
 import BagIndicator from './BagIndicator.jsx';
@@ -11,6 +11,7 @@ const Navbar = () => {
   const [showNav, setShowNav] = useState(false);
   const [showKids, setShowKids] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const location = useLocation();
 
   const updateWindowWidth = () => {
     setWindowWidth(window.innerWidth);
@@ -20,6 +21,10 @@ const Navbar = () => {
     window.addEventListener('resize', updateWindowWidth);
     return () => window.removeEventListener('resize', updateWindowWidth);
   });
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
 
   const collapseOnNavigate = () => {
     setShowKids(false);

@@ -119,7 +119,7 @@ const ProductList = () => {
               return <ProductCard key={shoe._id} shoe={shoe} />;
             })
           ) : (
-            <h1>No products found</h1>
+            <h1 className="font-semibold text-2xl">No products found</h1>
           )}
         </div>
       )}
