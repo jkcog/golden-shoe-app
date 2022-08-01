@@ -1,9 +1,10 @@
 import express from 'express';
 import asyncHandler from 'express-async-handler';
-import mongoose from 'mongoose';
 import Product from '../models/productModel.js';
 
 const productRoute = express.Router();
+
+const productsPerPage = 6;
 
 // Fetch all products
 productRoute.get(
@@ -16,52 +17,57 @@ productRoute.get(
 
 // Fetch product by search query
 productRoute.get(
-  '/search/:query/sort/:sort/:direction',
+  '/search',
   asyncHandler(async (req, res) => {
-    console.log(req.params.sort);
+    const pageNum = Number(req.query.page);
     const sortType = {};
-    sortType[req.params.sort] = req.params.direction;
-    const products = await Product.find({
-      title: { $regex: req.params.query, $options: 'i' },
-    }).sort(sortType);
-    console.log(products);
-    res.json(products);
-  })
-);
-
-// Fetch product by search query
-productRoute.get(
-  '/search/:query',
-  asyncHandler(async (req, res) => {
-    const products = await Product.find({
-      title: { $regex: req.params.query, $options: 'i' },
+    const sortBy = req.query.sortBy;
+    const sortDir = req.query.sortDir;
+    sortBy ? (sortType[sortBy] = sortDir) : null;
+    const productCount = await Product.countDocuments({
+      title: { $regex: req.query.query, $options: 'i' },
     });
-    console.log(products);
-    res.json(products);
-  })
-);
-
-// Fetch product by search query
-productRoute.get(
-  '/category/:category/sort/:sort/:direction',
-  asyncHandler(async (req, res) => {
-    console.log(req.params.sort);
-    const sortType = {};
-    sortType[req.params.sort] = req.params.direction;
     const products = await Product.find({
-      categories: req.params.category,
-    }).sort(sortType);
-    console.log(products);
-    res.json(products);
+      title: { $regex: req.query.query, $options: 'i' },
+    })
+      .limit(productsPerPage * pageNum)
+      .sort(sortType);
+    res.json({
+      products,
+      page: pageNum,
+      pages: Math.ceil(productCount / productsPerPage),
+    });
   })
 );
 
-// Fetch product by category
+// Fetch products by category
 productRoute.get(
-  '/category/:category',
+  '/category/',
   asyncHandler(async (req, res) => {
-    const products = await Product.find({ categories: req.params.category });
-    res.json(products);
+    const pageNum = Number(req.query.page);
+    const sortType = {};
+    const sortBy = req.query.sortBy;
+    const sortDir = req.query.sortDir;
+    sortBy ? (sortType[sortBy] = sortDir) : null;
+
+    // get all categories
+    const query = req.query.query.split(',');
+
+    const productCount = await Product.countDocuments({
+      categories: { $all: query },
+    });
+    const products = await Product.find({
+      categories: { $all: query },
+    })
+      .limit(productsPerPage)
+      .skip(productsPerPage * (pageNum - 1))
+      .sort(sortType);
+
+    res.json({
+      products,
+      page: pageNum,
+      pages: Math.ceil(productCount / productsPerPage),
+    });
   })
 );
 
@@ -69,7 +75,6 @@ productRoute.get(
 productRoute.get(
   '/:id',
   asyncHandler(async (req, res) => {
-    console.log('single product route');
     const product = await Product.findById(req.params.id);
     if (product) {
       res.json(product);

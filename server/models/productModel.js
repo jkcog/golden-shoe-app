@@ -11,7 +11,7 @@ const productSchema = new mongoose.Schema(
   {
     title: { type: String, require: true },
     categories: [String],
-    image: { type: String },
+    images: [String],
     description: { type: String },
     reviews: [reviewSchema],
     rating: { type: Number },

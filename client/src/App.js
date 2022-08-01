@@ -2,7 +2,7 @@ import AppRoutes from './Routes';
 
 function App() {
   return (
-    <div className="App w-screen max-w-screen">
+    <div className="App w-screen border-box">
       <AppRoutes />
     </div>
   );

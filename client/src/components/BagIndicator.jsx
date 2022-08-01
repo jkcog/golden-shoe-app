@@ -6,15 +6,23 @@ const BagIndicator = () => {
   const [itemCount, setItemCount] = useState();
   useEffect(() => {
     let count = 0;
-    console.log(bagState.bag);
     for (let item of bagState.bag) {
-      console.log(item);
       count += parseInt(item.quantity);
     }
     setItemCount(count);
   }, [bagState]);
 
-  return <div className="bg-red-400">{itemCount ? itemCount : ''}</div>;
+  return (
+    <>
+      {itemCount ? (
+        <>
+          <span className="absolute -mt-4 ml-5 px-1.5 text-center font-bold bg-slate-600 text-white rounded ml-2 text-sm">
+            {itemCount}
+          </span>
+        </>
+      ) : null}
+    </>
+  );
 };
 
 export default BagIndicator;

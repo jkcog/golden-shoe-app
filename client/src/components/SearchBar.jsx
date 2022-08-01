@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { BsSearch } from 'react-icons/bs';
 
 const SearchBar = ({ setShowSearch }) => {
   const navigate = useNavigate();
@@ -14,26 +15,28 @@ const SearchBar = ({ setShowSearch }) => {
 
   const handleSearch = () => {
     if (query.trim()) {
-      console.log(query);
-      console.log(`/search/${query.toLowerCase()}`);
       navigate(`/search/${query.toLowerCase()}`);
     }
   };
   return (
     <form
       onSubmit={handleSearch}
-      className="flex bg-black justify-center text-white p-4 mb-12"
+      className="flex flex-col items-center bg-slate-300 justify-center text-white p-4 mb-12 opacity-70"
     >
-      <input
-        className="text-black"
-        onChange={(e) => {
-          setQuery(e.target.value);
-        }}
-        type="text"
-        onBlur={() => setShowSearch(false)}
-        ref={inputRef}
-      />
-      <button type="submit">Search!</button>
+      <div className="flex bg-white text-xl rounded-full overflow-hidden p-4">
+        <input
+          className="text-black bg-white border-0 ring-0 focus:outline-0"
+          onChange={(e) => {
+            setQuery(e.target.value);
+          }}
+          type="text"
+          onBlur={() => setShowSearch(false)}
+          ref={inputRef}
+        />
+        <button onClick={handleSearch} className="text-black" type="submit">
+          <BsSearch />
+        </button>
+      </div>
     </form>
   );
 };

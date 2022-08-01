@@ -1,31 +1,25 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import editQuantity from '../actions/editQuantity';
-import removeFromBag from '../actions/removeFromBag';
 import { REMOVE_FROM_BAG } from '../reducers/contants';
 
 const BagItem = ({ product, productIndex }) => {
-  // const [quantity, setQuanitity] = useState(product.quantity);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const dispatch = useDispatch();
 
-  // const quantityState = useSelector((state) => state.bag[productIndex]);
-
-  useEffect(() => {
-    console.log(product);
-    console.log('quant: ', product.quantity);
-  });
-
   const updateQuantity = (e) => {
     const newQuant = e.target.value;
-    dispatch(editQuantity(product._id, product.size, newQuant));
+    if (newQuant < 20 && newQuant <= product.sizes[product.size]) {
+      setErrorMessage('');
+      dispatch(editQuantity(product._id, product.size, newQuant));
+    } else if (newQuant > product.sizes[product.size]) {
+      setErrorMessage('Infufficient stock');
+    }
   };
 
   const removeItem = () => {
-    console.log('remove item function');
-    console.log({ id: product._id, size: product.size });
     dispatch({
       type: REMOVE_FROM_BAG,
       payload: { id: product._id, size: product.size },
@@ -33,12 +27,28 @@ const BagItem = ({ product, productIndex }) => {
   };
 
   return (
-    <div className="mb-12 border-b-2 pl-12">
-      <div>
-        <h1>{product.title}</h1>
-        <h2>Size: {product.size}</h2>
+    <div className="mb-12 border-b-2 lg:pl-12 mt-12 py-8">
+      <div className="flex flex-col lg:flex-row items-center justify-between">
+        <div className="text-center lg:text-left mb-12 lg:mb-0">
+          <Link to={`/product/${product._id}`}>
+            <img
+              className="w-48 h-48 object-cover object-bottom mb-4"
+              src={product.images[0]}
+              alt={product.title}
+            />
+          </Link>
+
+          <button className="text-red-700 font-semibold" onClick={removeItem}>
+            Remove from bag
+          </button>
+        </div>
+        <div className="flex flex-col gap-4 lg:gap-0 items-center lg:items-start h-48 lg:mr-auto lg:ml-12 w-48">
+          <h1 className="text-xl font-bold">{product.title}</h1>
+          <h2>Size: {product.size}</h2>
+          <h2>Quantity: {product.quantity}</h2>
+        </div>
         <select
-          name=""
+          className="w-24 mb-8 lg:mb-0 lg:mr-auto rounded-xl p-2 bg-white border-slate-200 border-2"
           id=""
           value={product.quantity}
           onChange={updateQuantity}
@@ -49,17 +59,24 @@ const BagItem = ({ product, productIndex }) => {
           <option value="4">4</option>
           <option value="5">5</option>
           <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
         </select>
-        <h2>Quantity: {product.quantity}</h2>
-        <Link to={`/product/${product._id}`}>
-          <img
-            className="w-48 h-48 object-cover"
-            src={product.image}
-            alt={product.title}
-          />
-        </Link>
-        <button onClick={removeItem}>Remove from bag</button>
+
+        <h2 className="justify-self-end lg:mr-12 text-2xl">
+          £{parseInt(product.price) * parseInt(product.quantity)}
+        </h2>
       </div>
+      {errorMessage ? (
+        <div
+          className="bg-red-200 p-4 rounded-xl text-center mt-12 w-52 mx-auto cursor-pointer"
+          onClick={() => setErrorMessage('')}
+        >
+          {errorMessage}
+        </div>
+      ) : null}
     </div>
   );
 };

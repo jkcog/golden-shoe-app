@@ -4,7 +4,6 @@ const addToBag = (id, size) => {
   const dispatchBag = async (dispatch) => {
     fetch(`/api/products/${id}`)
       .then((res) => {
-        console.log(res);
         if (!res.ok) {
           throw new Error('Failed to fetch product');
         }
