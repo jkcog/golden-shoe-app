@@ -3,17 +3,17 @@ import { Link } from 'react-router-dom';
 const Featured = ({ category }) => {
   return (
     <>
-      <div className="flex justify-center items-center max-w-full w-1/2 mx-4 md:mx-12 lg:mx-24 xl:mx-40 lg:h-[34rem] w-auto flex-col lg:flex-row p-8 lg:p-12 mt-24 relative bg-slate-500">
+      <div className="flex justify-center items-center max-w-full w-full md:w-auto mx-auto md:mx-12 lg:mx-24 xl:mx-40 lg:h-[34rem] w-auto flex-col lg:flex-row p-4 md:p-8 lg:p-12 mt-24 relative bg-slate-500">
         <img
-          className="w-96 2xl:w-1/2 max-h-full object-cover object-bottom"
+          className="w-72 md:w-96 2xl:w-1/2 max-h-full object-cover object-bottom"
           src="/images/shoes/women/Trainer-2/1.jpeg"
         />
         <img
-          className="w-96 2xl:w-1/2 max-h-full object-cover object-bottom"
+          className="w-72 md:w-96 2xl:w-1/2 max-h-full object-cover object-bottom"
           src="/images/shoes/men/Trainer-2/2.jpeg"
         />
         <div className="bg-slate-300 absolute p-2 lg:p-4 bottom-50 lg:mb-24 rounded-lg opacity-80">
-          <p className="font-thin text-2xl xl:text-5xl text-black capitalize">
+          <p className="font-thin text-2xl xl:text-5xl text-black capitalize text-center">
             {category} for everyone
           </p>
         </div>

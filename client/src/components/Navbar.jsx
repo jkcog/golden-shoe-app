@@ -49,7 +49,7 @@ const Navbar = () => {
               to="/"
               onClick={collapseOnNavigate}
             >
-              Golden Shoes
+              Golden Shoe
             </NavLink>
             <NavLink
               className={({ isActive }) =>
