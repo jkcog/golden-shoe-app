@@ -13,3 +13,25 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@layer components {
+  .error-cont {
+    @apply bg-red-200 p-4 rounded-xl text-center mt-12;
+  }
+
+  .product-card {
+    @apply w-96 h-96 hover:opacity-80 transition;
+  }
+
+  .search-bar {
+    @apply text-black bg-white border-0 ring-0 focus:outline-0;
+  }
+
+  .select-input-lg {
+    @apply bg-white rounded-xl border-2 border-slate-200 p-4;
+  }
+
+  .success-btn {
+    @apply mx-auto justify-self-center p-4 text-2xl font-semibold bg-green-600 hover:bg-green-700 text-white transition;
+  }
+}

@@ -27,7 +27,7 @@ const BagItem = ({ product, productIndex }) => {
   };
 
   return (
-    <div className="mb-12 border-b-2 lg:pl-12 mt-12 py-8">
+    <div className="mb-8 border-b-2 lg:pl-12 mt-12 py-8 w-full">
       <div className="flex flex-col lg:flex-row items-center justify-between">
         <div className="text-center lg:text-left mb-12 lg:mb-0">
           <Link to={`/product/${product._id}`}>
@@ -71,7 +71,7 @@ const BagItem = ({ product, productIndex }) => {
       </div>
       {errorMessage ? (
         <div
-          className="bg-red-200 p-4 rounded-xl text-center mt-12 w-52 mx-auto cursor-pointer"
+          className="error-cont w-52 mx-auto cursor-pointer"
           onClick={() => setErrorMessage('')}
         >
           {errorMessage}

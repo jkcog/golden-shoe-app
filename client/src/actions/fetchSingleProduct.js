@@ -7,7 +7,7 @@ import {
 const fetchSingleProduct = (id) => {
   const dispatchProducts = async (dispatch) => {
     dispatch({ type: FETCH_SINGLE_PRODUCT_REQUESTED });
-    fetch(`/api/products/${id}`)
+    fetch(`${process.env.REACT_APP_API_URL}/api/products/${id}`)
       .then((res) => {
         if (!res.ok) {
           throw new Error('Failed to fetch product');

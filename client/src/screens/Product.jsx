@@ -88,7 +88,7 @@ const IndividualProduct = () => {
                     setSize(e.target.value);
                   }}
                 >
-                  <option defaultValue disabled hidden value="">
+                  <option selected disabled hidden value="">
                     Select a size
                   </option>
                   {Object.keys(product.sizes).map((size, i) => {
@@ -109,9 +109,7 @@ const IndividualProduct = () => {
               </div>
 
               {errorMessage ? (
-                <div className="bg-red-200 py-4 rounded-xl text-center mt-12">
-                  {errorMessage}
-                </div>
+                <div className="error-cont">{errorMessage}</div>
               ) : null}
               <button
                 className="transition bg-slate-600 hover:bg-slate-500 text-white rounded-xl py-3 lg:py-4 xl:px-24 mt-12 lg:mt-24 text-xl w-full"

@@ -9,8 +9,8 @@ const fetchProducts = (query, type, sort, page) => {
     dispatch({ type: FETCH_PRODUCTS_REQUESTED });
 
     const url = sort
-      ? `/api/products/${type}?query=${query}&sortBy=${sort.field}&sortDir=${sort.direction}&page=${page}`
-      : `/api/products/${type}?query=${query}&page=${page}`;
+      ? `${process.env.REACT_APP_API_URL}/api/products/${type}?query=${query}&sortBy=${sort.field}&sortDir=${sort.direction}&page=${page}`
+      : `${process.env.REACT_APP_API_URL}/api/products/${type}?query=${query}&page=${page}`;
     fetch(url)
       .then((res) => {
         if (!res.ok) {

@@ -25,7 +25,7 @@ const SearchBar = ({ setShowSearch }) => {
     >
       <div className="flex bg-white text-xl rounded-full overflow-hidden p-4">
         <input
-          className="text-black bg-white border-0 ring-0 focus:outline-0"
+          className="search-bar"
           onChange={(e) => {
             setQuery(e.target.value);
           }}

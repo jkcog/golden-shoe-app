@@ -2,7 +2,7 @@ import { ADD_TO_BAG } from '../reducers/contants';
 
 const addToBag = (id, size) => {
   const dispatchBag = async (dispatch) => {
-    fetch(`/api/products/${id}`)
+    fetch(`${process.env.REACT_APP_API_URL}/api/products/${id}`)
       .then((res) => {
         if (!res.ok) {
           throw new Error('Failed to fetch product');

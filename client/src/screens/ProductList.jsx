@@ -14,23 +14,29 @@ const ProductList = () => {
 
   const productState = useSelector((state) => state.products);
   const [sortBy, setSortBy] = useState('');
-  const [pageNum, setPageNum] = useState(1);
   const [categories, setCategories] = useState(q ? [category, q] : [category]);
   const [filter, setFilter] = useState(q);
 
   const { products, loading, error, pages } = productState;
 
-  const sortOptions = {};
+  useEffect(() => {
+    if (q) {
+      setFilter(q);
+      setCategories([category, q]);
+    } else {
+      setFilter('');
+      setCategories([category]);
+    }
+  }, [category]);
 
   useEffect(() => {
     if (filter && !q) {
       setCategories([category, filter]);
-    } else if (q) {
-      setCategories([category, q]);
-    } else {
+    }
+    if (!filter && !q) {
       setCategories([category]);
     }
-  }, [category, filter]);
+  }, [filter]);
 
   useEffect(() => {
     setSearchParams({ page: 1 });
@@ -64,10 +70,10 @@ const ProductList = () => {
   };
 
   return (
-    <div className="w-screen px-4 md:px-12 lg:px-32 xl:px-48">
+    <div className="max-w-screen px-4 md:px-12 lg:px-32 xl:px-48 border-box overflow-hidden">
       <div className="flex flex-col md:flex-row justify-around lg:justify-start text-lg">
         <select
-          className="my-12 mx-4 xl:mx-0 bg-white rounded-xl border-2 border-slate-200 p-4"
+          className="my-12 mx-4 xl:mx-0 select-input-lg"
           onChange={(e) => {
             setSortBy(JSON.parse(e.target.value));
           }}
@@ -86,21 +92,23 @@ const ProductList = () => {
             Price low to high
           </option>
         </select>
-        <select
-          className="my-12 mx-4 xl:mr-0 xl:ml-12 bg-white rounded-xl border-2 border-slate-200 p-4"
-          value={filter}
-          onChange={(e) => {
-            updateFilter(e);
-          }}
-        >
-          <option className="px-8" value="" defaultValue>
-            Product Type
-          </option>
-          <option value="boots">Boots</option>
-          <option value="trainers">Trainers</option>
-          <option value="loafers">Loafers</option>
-          <option value="sandals">Sandals</option>
-        </select>
+        {category ? (
+          <select
+            className="my-12 mx-4 xl:mr-0 xl:ml-12 select-input-lg"
+            value={filter}
+            onChange={(e) => {
+              updateFilter(e);
+            }}
+          >
+            <option className="px-8" value="" defaultValue>
+              Product Type
+            </option>
+            <option value="boots">Boots</option>
+            <option value="trainers">Trainers</option>
+            <option value="loafers">Loafers</option>
+            <option value="sandals">Sandals</option>
+          </select>
+        ) : null}
       </div>
       {loading || error ? (
         <div className="text-center text-xl pt-24">

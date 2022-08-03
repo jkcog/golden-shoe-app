@@ -2,7 +2,7 @@ import { EDIT_QUANTITY } from '../reducers/contants';
 
 const editQuantity = (id, size, quantity) => {
   const dispatchBag = async (dispatch) => {
-    fetch(`/api/products/${id}`)
+    fetch(`${process.env.REACT_APP_API_URL}/api/products/${id}`)
       .then((res) => {
         console.log(res);
         if (!res.ok) {
