@@ -1,4 +1,4 @@
-# Golden Shoes
+# Golden Shoe
 
 This project contains a frontend React client and a backend Express server.
 - To run the server, run `npm install` within the `server` directory to install the necessary dependencies, followed by `npm start` to run the app.
