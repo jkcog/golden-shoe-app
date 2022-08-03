@@ -15,7 +15,7 @@ const BagItem = ({ product, productIndex }) => {
       setErrorMessage('');
       dispatch(editQuantity(product._id, product.size, newQuant));
     } else if (newQuant > product.sizes[product.size]) {
-      setErrorMessage('Infufficient stock');
+      setErrorMessage('Insufficient stock');
     }
   };
 
